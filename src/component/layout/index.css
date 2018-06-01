@@ -1,0 +1,17 @@
+/* NavTop */
+.user span {
+  color: #fff;
+  margin-left: 10px;
+}
+.user .icon{
+  color: red;
+  margin-left: 10px;
+}
+/* end NavTop */
+/* NavSide */
+.logo {
+    height: 40px;
+    background: rgba(255,255,255,.2);
+    margin: 10px;
+  }
+  /* end NavSide */
