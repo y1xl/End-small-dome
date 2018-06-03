@@ -1,0 +1,10 @@
+.card {
+    width: 300px;
+    text-align: center;
+}
+.card:hover {
+    transform: scale(1.08);
+}
+.card h1 {
+    font-size: 50px;
+}

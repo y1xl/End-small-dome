@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import bindOnce from 'react-bind-once';
+import NoticeIcon from 'ant-design-pro/lib/NoticeIcon';
+import HeaderSearch from 'ant-design-pro/lib/HeaderSearch';
 import { Layout, Menu, Icon, Avatar } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
 import './index.css';
-import style from './index.css'
 
 class NavTop extends React.Component {
     constructor(props) {
@@ -16,11 +17,11 @@ class NavTop extends React.Component {
         return (
             <React.Fragment>
                 <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-                    <div className="user">
-                        <Avatar icon="user" /> 
-                        <span>欢迎，xxxx</span>
-                        <Icon type="poweroff" className="icon" />
-                    </div>
+                    <Avatar icon="user" /> 
+                    <span className="username">欢迎，xxxx</span>
+                    <Icon type="poweroff" className="icon" />
+                    <NoticeIcon count={1} className="notice" />
+                    <HeaderSearch placeholder="站内搜索" className="search" />
                 </Header>
             </React.Fragment>
         )
@@ -30,16 +31,6 @@ class NavTop extends React.Component {
 class NavSide extends React.Component {
     constructor(props) {
         super(props);
-        bindOnce(this);
-        this.state = {
-            collapsed: false,
-        }
-    }
-
-    onCollapse() {
-        this.setState({
-            collapsed : !this.state.collapsed
-        });
     }
 
     render() {
@@ -48,10 +39,11 @@ class NavSide extends React.Component {
                 <Sider
                 collapsible
                 breakpoint="lg"
-                collapsed={this.state.collapsed}
-                onCollapse={this.onCollapse}
+                collapsed={this.props.collapsed}
+                onCollapse={this.props.onCollapse}
+                style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}
                 >
-                    {/* <div className={style.logo} /> */}
+                    <div className="logo" />
                     <Menu theme="dark" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline">
                         <Menu.Item key="1">
                             <Link to="/">
@@ -88,16 +80,30 @@ class NavSide extends React.Component {
 class Layouts extends React.Component {
     constructor(props) {
         super(props);
+        bindOnce(this);
+        this.state = {
+            collapsed: false,
+        }
     }
+
+    onCollapse() {
+        this.setState({
+            collapsed : !this.state.collapsed,
+        });
+    }
+
     render(){
+        let { collapsed } = this.state
         return (
             <React.Fragment>
                 <Layout>
-                    <NavSide/>
+                    <NavSide onCollapse={this.onCollapse} collapsed={collapsed} />
                     <Layout>
                         <NavTop/>                        
-                        <Content style={{ padding: '0 50px', marginTop: 64 }}>{this.props.children}</Content>
-                        <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by y1xl</Footer>
+                        <Content style={{ padding: '0 50px', marginTop: 64, marginLeft: collapsed?64:200 }}>
+                            {this.props.children}
+                        </Content>
+                        <Footer style={{ textAlign: 'center' }}>React-BackEnd-SmallDome ©2018 Created by y1xl</Footer>
                     </Layout>
                 </Layout>
             </React.Fragment>

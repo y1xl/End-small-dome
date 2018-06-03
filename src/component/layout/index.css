@@ -1,9 +1,15 @@
 /* NavTop */
-.user span {
+.username, .notice, .search {
   color: #fff;
-  margin-left: 10px;
+  margin-left: 20px;
 }
-.user .icon{
+.search {
+  margin-left: 35px;
+}
+.notice i {
+  color: #fff;
+}
+.icon{
   color: red;
   margin-left: 10px;
 }
