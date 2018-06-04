@@ -1,6 +1,4 @@
 import React        from 'react';
-import Exception from 'ant-design-pro/lib/Exception';
-
 import PageTitle    from 'component/page-title/index.jsx';
 
 class Error extends React.Component{
@@ -10,9 +8,9 @@ class Error extends React.Component{
     render(){
         return (
             <React.Fragment>
-                <PageTitle title="出错啦!"/>
+                <PageTitle title="用户列表"/>
                 <div style={{ background: '#fff', padding: 24 }}>
-                    <Exception type="404" />
+                    
                 </div>
             </React.Fragment>
         );

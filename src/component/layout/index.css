@@ -1,17 +1,22 @@
 /* NavTop */
-.username, .notice, .search {
+.username, .search {
   color: #fff;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 .search {
-  margin-left: 35px;
+  margin-right: 35px;
+}
+.notice {
+  margin-right: 25px;
 }
 .notice i {
   color: #fff;
 }
-.icon{
+.poweroff {
+  font-size: 18px;
   color: red;
-  margin-left: 10px;
+  margin-left: 20px;
+  cursor: pointer;
 }
 /* end NavTop */
 /* NavSide */

@@ -2,15 +2,18 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Redirect, Route } from 'react-router-dom';
 
 import Layouts from 'component/layout/index.jsx'
+import Login from 'page/login/index.jsx'
 import Home from 'page/home/index.jsx';
+import User from 'page/user/index.jsx';
 import ErrorPage from 'page/error/index.jsx';
 
-export default class AppRouter extends React.Component{
-    render(){
+export default class AppRouter extends React.Component {
+    render() {
         let LayoutRouter = (
             <Layouts>
                 <Switch>
                     <Route exact path="/" component={Home}/>
+                    <Route path="/user" component={User}/>
                     <Route component={ErrorPage}/>
                 </Switch>
             </Layouts>
@@ -18,7 +21,7 @@ export default class AppRouter extends React.Component{
         return (
             <Router>
                 <Switch>
-                    {/* <Route path="/login" component={Login}/> */}
+                    <Route path="/login" component={Login}/>
                     <Route path="/" render={ props => LayoutRouter}/>
                 </Switch>
             </Router>

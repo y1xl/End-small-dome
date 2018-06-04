@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import bindOnce from 'react-bind-once';
 import NoticeIcon from 'ant-design-pro/lib/NoticeIcon';
 import HeaderSearch from 'ant-design-pro/lib/HeaderSearch';
@@ -7,21 +7,49 @@ import { Layout, Menu, Icon, Avatar } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
+import Axios from 'axios';
+import { API_BASE_URL } from 'service/api.js';
+import Util from 'util/util.js';
 import './index.css';
 
 class NavTop extends React.Component {
     constructor(props) {
         super(props);
+        bindOnce(this);
+        this.state = {
+            username : Util.getStorage('userInfo').username || ''
+        }
     }
+    // 退出登录
+    onLogout(){
+        let that = this;
+        Axios.post(`${API_BASE_URL}/user/logout.do`)
+          .then(function (res) {
+            Util.removeStorage('userInfo');
+            // that.props.history.push('/login');
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+    
     render() {
         return (
             <React.Fragment>
-                <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-                    <Avatar icon="user" /> 
-                    <span className="username">欢迎，xxxx</span>
-                    <Icon type="poweroff" className="icon" />
-                    <NoticeIcon count={1} className="notice" />
-                    <HeaderSearch placeholder="站内搜索" className="search" />
+                <Header style={{ position: 'fixed', zIndex: 1, width: '100%', overflow: 'hidden' }}>
+                    <div className="fr">
+                        <HeaderSearch placeholder="站内搜索" className="search" />
+                        <NoticeIcon count={1} className="notice" />
+                        <Avatar icon="user"/> 
+                        {
+                            this.state.username
+                            ? <span className="username">欢迎，{this.state.username}</span>
+                            : <Link to="/login"><span className="username">您还未登陆</span></Link>
+                        }
+                        {
+                            this.state.username ? <Link to="/login"><Icon type="poweroff" className="poweroff" onClick={this.onLogout} /></Link> : null
+                        }
+                    </div>
                 </Header>
             </React.Fragment>
         )
@@ -41,7 +69,7 @@ class NavSide extends React.Component {
                 breakpoint="lg"
                 collapsed={this.props.collapsed}
                 onCollapse={this.props.onCollapse}
-                style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}
+                style={{ overflow: 'auto', height: '100vh', zIndex: 2, position: 'fixed', left: 0 }}
                 >
                     <div className="logo" />
                     <Menu theme="dark" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline">
