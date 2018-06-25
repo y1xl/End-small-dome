@@ -64,8 +64,11 @@ module.exports = {
 		]
 	},
 	devServer: {
-        contentBase: './dist',
-        port: 3000,             // 端口
+		contentBase: './dist',
+		historyApiFallback: {
+            index: '/dist/index.html'
+		},
+        port: 3000,             
         open: true,             // 自动打开浏览器
     },
 	plugins: [

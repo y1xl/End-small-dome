@@ -30,9 +30,10 @@ class Login extends React.Component {
 
     setDefaultValue() {
         if(this.state.autoLogin) {
-            let username = Util.getStorage('userInfo').username;
+            let username = Util.getStorage('userInfo').username ? Util.getStorage('userInfo').username : null;
             this.setState({
                 defaultValue: username,
+                username
             })
         }
     }    

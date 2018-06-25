@@ -37,10 +37,6 @@ class Util {
             result      = queryString.match(reg);
         return result ? decodeURIComponent(result[2]) : null;
     }
-    // 强制跳转登录
-    doLogin(){
-        window.location.href = '/login?redirect=' + encodeURIComponent(window.location.pathname);
-    }
         
 }
 
